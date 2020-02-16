@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import './css/icons.css';
 
-import { signout } from '../auth';
+import { signout, isAuthenticated } from '../auth';
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -21,43 +21,49 @@ const Menu = ({ history }) => (
       </Link>
     </li>
 
-    <li className='nav-item'>
-      <Link
-        className='nav-link'
-        style={isActive(history, '/signin')}
-        to='/signin'
-      >
-        {' '}
-        <Icon type='login' />
-        Signin
-      </Link>
-    </li>
+    {!isAuthenticated() && (
+      <Fragment>
+        <li className='nav-item'>
+          <Link
+            className='nav-link'
+            style={isActive(history, '/signin')}
+            to='/signin'
+          >
+            {' '}
+            <Icon type='login' />
+            Signin
+          </Link>
+        </li>
 
-    <li className='nav-item'>
-      <Link
-        className='nav-link'
-        style={isActive(history, '/signup')}
-        to='/signup'
-      >
-        {' '}
-        <Icon type='up-circle' /> Signup
-      </Link>
-    </li>
+        <li className='nav-item'>
+          <Link
+            className='nav-link'
+            style={isActive(history, '/signup')}
+            to='/signup'
+          >
+            {' '}
+            <Icon type='up-circle' /> Signup
+          </Link>
+        </li>
+      </Fragment>
+    )}
 
-    <li className='nav-item'>
-      <span
-        className='nav-link'
-        style={{ cursor: 'pointer', color: '#ffffff' }}
-        onClick={() => {
-          signout(() => {
-            history.push('/');
-          });
-        }}
-      >
-        {' '}
-        <Icon type='logout' /> Sign-Out
-      </span>
-    </li>
+    {isAuthenticated() && (
+      <li className='nav-item'>
+        <span
+          className='nav-link'
+          style={{ cursor: 'pointer', color: '#ffffff' }}
+          onClick={() => {
+            signout(() => {
+              history.push('/');
+            });
+          }}
+        >
+          {' '}
+          <Icon type='logout' /> Sign-Out
+        </span>
+      </li>
+    )}
   </ul>
 );
 

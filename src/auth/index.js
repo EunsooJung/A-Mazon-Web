@@ -78,3 +78,17 @@ export const signout = cb => {
       .catch(err => console.log(err));
   }
 };
+
+/**
+ * display or hide sign-in, sign-out link
+ */
+export const isAuthenticated = () => {
+  if (typeof window == 'undefined') {
+    return false;
+  }
+  if (localStorage.getItem('jwt')) {
+    return JSON.parse(localStorage.getItem('jwt'));
+  } else {
+    return false;
+  }
+};
