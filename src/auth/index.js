@@ -23,3 +23,28 @@ export const signup = user => {
       })
   );
 };
+
+/** SignIn */
+export const signin = user => {
+  // console.log(name, email, password);
+
+  // fetch method's first argument is url using 'API'
+  return (
+    fetch(`${API}/signin`, {
+      // second arguement
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      // error handling
+      .then(response => {
+        return response.json();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  );
+};
