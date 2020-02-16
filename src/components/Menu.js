@@ -24,6 +24,8 @@ const Menu = ({ history }) => (
         style={isActive(history, '/signin')}
         to='/signin'
       >
+        {' '}
+        <Icon type='login' />
         Signin
       </Link>
     </li>
@@ -34,7 +36,8 @@ const Menu = ({ history }) => (
         style={isActive(history, '/signup')}
         to='/signup'
       >
-        Signup
+        {' '}
+        <Icon type='up-circle' /> Signup
       </Link>
     </li>
   </ul>
