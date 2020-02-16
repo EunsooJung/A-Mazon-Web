@@ -49,6 +49,7 @@ export const signin = user => {
   );
 };
 
+/** user authenticate data save to localStorage */
 export const authenticate = (data, cb) => {
   // If window object is not equal to 'undefined'
   if (typeof window !== 'undefined') {
@@ -56,5 +57,24 @@ export const authenticate = (data, cb) => {
     localStorage.setItem('jwt', JSON.stringify(data));
     // then call callback function
     cb();
+  }
+};
+
+/**
+ * sign-out
+ * Romove token from localStorage and then make a logout request to backend.
+ * Redirect to home
+ */
+export const signout = cb => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt');
+    cb();
+    return fetch(`${API}/signout`, {
+      method: 'GET'
+    })
+      .then(response => {
+        console.log('signout', response);
+      })
+      .catch(err => console.log(err));
   }
 };
