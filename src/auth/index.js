@@ -48,3 +48,13 @@ export const signin = user => {
       })
   );
 };
+
+export const authenticate = (data, cb) => {
+  // If window object is not equal to 'undefined'
+  if (typeof window !== 'undefined') {
+    // Save jwt to localStorage
+    localStorage.setItem('jwt', JSON.stringify(data));
+    // then call callback function
+    cb();
+  }
+};

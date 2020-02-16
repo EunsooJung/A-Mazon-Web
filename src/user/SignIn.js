@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { signin } from '../auth';
+import { signin, authenticate } from '../auth';
 
 import 'antd/dist/antd.css';
 
@@ -42,9 +42,15 @@ const SignIn = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, lodading: false });
       } else {
-        setValues({
-          ...values,
-          redirectToReferrer: true
+        // setValues({
+        //   ...values,
+        //   redirectToReferrer: true
+        // });
+        authenticate(data, () => {
+          setValues({
+            ...values,
+            redirectToReferrer: true
+          });
         });
       }
     });
