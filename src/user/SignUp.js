@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { API } from '../config';
+import { signup } from '../auth';
 
-import ReactDOM from 'react-dom';
+/** Refactoring to auth/index.js
+import { API } from '../config';
+ */
 import 'antd/dist/antd.css';
 
-import {
-  Form,
-  Input,
-  Tooltip,
-  Icon,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete
-} from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const SignUp = () => {
   // Apply useState hooks to get data from the ui, it will be bind to submit event handler
@@ -43,6 +33,7 @@ const SignUp = () => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
+  /* Refactoring to auth/index.js
   // send json type data to backend using browser's fetch method by the default, also we can use axios instead of fetch method
   const signup = user => {
     // console.log(name, email, password);
@@ -67,7 +58,7 @@ const SignUp = () => {
         })
     );
   };
-
+*/
   // click event handler
   const signUpSubmit = event => {
     // The browser doesn't reload when the button is clicked
