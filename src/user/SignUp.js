@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { API } from '../config';
 
@@ -34,7 +35,7 @@ const SignUp = () => {
   });
 
   // To get the signup data, we can destructure states
-  const { name, email, password } = values;
+  const { name, email, password, error, success } = values;
 
   // To handle the states change status (higher order function), it returning another function)
   // blows, name is function, event is returning fuction
@@ -47,30 +48,48 @@ const SignUp = () => {
     // console.log(name, email, password);
 
     // fetch method's first argument is url using 'API'
-    fetch(`${API}/signup`, {
-      // second arguement
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
-      // error handling
-      .then(response => {
-        return response.json();
+    return (
+      fetch(`${API}/signup`, {
+        // second arguement
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
       })
-      .catch(err => {
-        console.log(err);
-      });
+        // error handling
+        .then(response => {
+          return response.json();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    );
   };
 
   // click event handler
   const signUpSubmit = event => {
     // The browser doesn't reload when the button is clicked
     event.preventDefault();
+    // Destructuring
+    setValues({ ...values, error: false });
     // call signup function to get the object data (name, email, password)
-    signup({ name, email, password });
+    // signup({ name, email, password });
+    signup({ name, email, password }).then(data => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, success: false });
+      } else {
+        setValues({
+          ...values,
+          name: '',
+          email: '',
+          password: '',
+          error: '',
+          success: true
+        });
+      }
+    });
   };
 
   const signUpForm = () => (
@@ -81,6 +100,7 @@ const SignUp = () => {
           onChange={handleChange('name')}
           type='text'
           className='form-control'
+          value={name}
         />
       </div>
       <div className='form-group'>
@@ -89,6 +109,7 @@ const SignUp = () => {
           onChange={handleChange('email')}
           type='email'
           className='form-control'
+          value={email}
         />
       </div>
       <div className='form-group'>
@@ -97,6 +118,7 @@ const SignUp = () => {
           onChange={handleChange('password')}
           type='password'
           className='form-control'
+          value={password}
         />
       </div>
       <Button onClick={signUpSubmit} type='primary' className='btn btn-primary'>
@@ -105,15 +127,37 @@ const SignUp = () => {
     </Form>
   );
 
+  // To show error message
+  const showError = () => (
+    <div
+      className='alert alert-danger'
+      style={{ display: error ? '' : 'none' }}
+    >
+      {error}
+    </div>
+  );
+
+  // To show success message
+  const showSuccess = () => (
+    <div
+      className='alert alert-info'
+      style={{ display: success ? '' : 'none' }}
+    >
+      New account is created. Please <Link to='/signin'>Signin</Link>
+    </div>
+  );
+
   return (
     <Layout
       title='SignUp'
       description='SignUp to Full-Stack Dev'
       className='container col-md-8 offset-md-2'
     >
+      {showSuccess()}
+      {showError()}
       {signUpForm()}
       {/* To check the states changing status, we can use json.stringity */}
-      {JSON.stringify(values)}
+      {/* {JSON.stringify(values)} */}
     </Layout>
   );
 };
