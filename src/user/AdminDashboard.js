@@ -34,10 +34,9 @@ const AdminDashboard = () => {
   const adminInfo = () => {
     return (
       <div className='card mb-5'>
-        <h3 className='card-header'>
-          <Icon type='profile' theme='twoTone' />
-          User Profile
-        </h3>
+        <h4 className='card-header'>
+          <Icon type='profile' theme='twoTone' /> Admin Profile
+        </h4>
         <ul className='list-group'>
           <li className='list-group-item'>{name}</li>
           <li className='list-group-item'>{email}</li>
@@ -51,8 +50,8 @@ const AdminDashboard = () => {
 
   return (
     <Layout
-      title={`${name}'s Dashboard `}
-      description={`Welcome to Optimized ERP! Manage your profile and product categories !`}
+      title={`Admin ${name}'s Dashboard `}
+      description={`Welcome to Optimized ERP! Manage your profile, Products and Categories !`}
       className='container-fluid'
     >
       <div className='row'>

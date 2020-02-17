@@ -21,15 +21,30 @@ const Menu = ({ history }) => (
       </Link>
     </li>
 
-    <li className='nav-item icon-size'>
-      <Link
-        className='nav-link'
-        style={isActive(history, '/user/user-dashboard')}
-        to='/user/user-dashboard'
-      >
-        <Icon type='dashboard' /> User Dashboard
-      </Link>
-    </li>
+    {/*  */}
+    {isAuthenticated() && isAuthenticated().user.role === 0 && (
+      <li className='nav-item icon-size'>
+        <Link
+          className='nav-link'
+          style={isActive(history, '/user/user-dashboard')}
+          to='/user/user-dashboard'
+        >
+          <Icon type='dashboard' /> User Dashboard
+        </Link>
+      </li>
+    )}
+
+    {isAuthenticated() && isAuthenticated().user.role === 1 && (
+      <li className='nav-item icon-size'>
+        <Link
+          className='nav-link'
+          style={isActive(history, '/admin/admin-dashboard')}
+          to='/admin/admin-dashboard'
+        >
+          <Icon type='dashboard' /> Admin Dashboard
+        </Link>
+      </li>
+    )}
 
     {!isAuthenticated() && (
       <Fragment>

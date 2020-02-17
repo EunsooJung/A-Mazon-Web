@@ -112,6 +112,10 @@ const SignIn = () => {
         return <Redirect to='/user/user-dashboard' />;
       }
     }
+    // If user is not a admin but aleady logged in isAuthenticated user, redirect to home
+    if (isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
   };
 
   return (

@@ -9,6 +9,8 @@ import SignIn from './user/SignIn';
 import Home from './components/Home';
 import PrivateRoute from './auth/privateRoute';
 import UserDashboard from './user/UserDashboard';
+import AdminRoute from './auth/adminRoute';
+import AdminDashboard from './user/AdminDashboard';
 
 const Routes = () => {
   return (
@@ -21,6 +23,11 @@ const Routes = () => {
           path='/user/user-dashboard'
           exact
           component={UserDashboard}
+        />
+        <AdminRoute
+          path='/admin/admin-dashboard'
+          exact
+          component={AdminDashboard}
         />
       </Switch>
     </BrowserRouter>
