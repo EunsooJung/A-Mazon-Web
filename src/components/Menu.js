@@ -24,8 +24,8 @@ const Menu = ({ history }) => (
     <li className='nav-item icon-size'>
       <Link
         className='nav-link'
-        style={isActive(history, '/user-dashboard')}
-        to='/user-dashboard'
+        style={isActive(history, '/user/user-dashboard')}
+        to='/user/user-dashboard'
       >
         <Icon type='dashboard' /> User Dashboard
       </Link>

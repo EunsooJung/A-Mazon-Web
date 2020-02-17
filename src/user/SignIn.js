@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { signin, authenticate } from '../auth';
+import { signin, authenticate, isAuthenticated } from '../auth';
 
 import 'antd/dist/antd.css';
 
@@ -24,6 +24,8 @@ const SignIn = () => {
   // To get the signin data, we can destructure states
   const { email, password, error, loading, redirectToReferrer } = values;
 
+  // If user is authentidcated user, destructuring user to redirect dashboard
+  const { user } = isAuthenticated();
   // To handle the states change status (higher order function), it returning another function)
   // blows, name is function, event is returning fuction
   const handleChange = name => event => {
@@ -103,7 +105,12 @@ const SignIn = () => {
   // Handle redirection
   const redirectUser = () => {
     if (redirectToReferrer) {
-      return <Redirect to='/' />;
+      // return <Redirect to='/' />;
+      if (user && user.role === 1) {
+        return <Redirect to='/admin/admin-dashboard' />;
+      } else {
+        return <Redirect to='/user/user-dashboard' />;
+      }
     }
   };
 

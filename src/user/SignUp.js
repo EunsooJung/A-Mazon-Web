@@ -33,32 +33,6 @@ const SignUp = () => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  /* Refactoring to auth/index.js
-  // send json type data to backend using browser's fetch method by the default, also we can use axios instead of fetch method
-  const signup = user => {
-    // console.log(name, email, password);
-
-    // fetch method's first argument is url using 'API'
-    return (
-      fetch(`${API}/signup`, {
-        // second arguement
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      })
-        // error handling
-        .then(response => {
-          return response.json();
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    );
-  };
-*/
   // click event handler
   const signUpSubmit = event => {
     // The browser doesn't reload when the button is clicked
