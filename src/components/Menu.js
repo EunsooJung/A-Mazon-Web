@@ -14,10 +14,20 @@ const isActive = (history, path) => {
 };
 
 const Menu = ({ history }) => (
-  <ul className='nav nav-tabs bg-primary'>
-    <li className='nav-item icon-size'>
+  <ul className='nav nav-tabs bg-primary icon-size'>
+    <li className='nav-item'>
       <Link className='nav-link' style={isActive(history, '/')} to='/'>
         <Icon type='home' /> Home
+      </Link>
+    </li>
+
+    <li className='nav-item icon-size'>
+      <Link
+        className='nav-link'
+        style={isActive(history, '/user-dashboard')}
+        to='/user-dashboard'
+      >
+        <Icon type='dashboard' /> User Dashboard
       </Link>
     </li>
 
