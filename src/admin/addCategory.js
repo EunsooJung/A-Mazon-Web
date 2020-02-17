@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
-import { Input, Button } from 'antd';
+import { createCategory } from './adminApi';
 
 const AddCategory = () => {
   // Apply react useState hooks to use  name of the Categories state and initialize default state
@@ -21,6 +21,7 @@ const AddCategory = () => {
     setError('');
     setName(e.target.value);
   };
+
   /**
    * @function createNewCategorySubmit
    * @argument eventHandler
@@ -28,18 +29,26 @@ const AddCategory = () => {
   const createNewCategorySubmit = e => {
     // prevent default behavior
     e.preventDefault();
-    // page not reloaded
+    // if page not reloaded
     setError('');
     // set success by default false
     setSuccess(false);
-    // Make request to server api to createCategory
+    // Make request to server api to createCategory (userId, token, category)
+    createCategory(user._id, token, { name }).then(data => {
+      if (data.error) {
+        setError(true);
+      } else {
+        setError('');
+        setSuccess(true);
+      }
+    });
   };
 
   /** Create New Category Form */
   const newCategoryForm = () => (
     <form onSubmit={createNewCategorySubmit}>
       <div className='form-group'>
-        <label className='text-muted'>Name</label>
+        <label className='text-muted'>Category name: </label>
         <input
           type='text'
           className='form-control'
@@ -49,17 +58,42 @@ const AddCategory = () => {
           required
         />
       </div>
-      <Button className='btn btn-outline-primary'>Create Category</Button>
+      <button className='btn btn-outline-primary'>Create Category</button>
     </form>
+  );
+
+  const showSuccess = () => {
+    if (success) {
+      return <h3 className='text-success'>Category name: {name} is created</h3>;
+    }
+  };
+
+  const showError = () => {
+    if (error) {
+      return <h3 className='text-danger'>Category should be unique</h3>;
+    }
+  };
+
+  const goBack = () => (
+    <div className='mt-5'>
+      <Link to='/admin/admin-dashboard' className='text-warning'>
+        Back to Dashboard
+      </Link>
+    </div>
   );
 
   return (
     <Layout
       title='Add a new category'
-      description={`Admin ${name}, Are you ready to add a new category ?`}
+      description={`Admin ${user.name}, Are you ready to add a new category ?`}
     >
       <div className='row'>
-        <div className='col-md-8 offset-md-2'>{newCategoryForm()}</div>
+        <div className='col-md-8 offset-md-2'>
+          {showSuccess()}
+          {showError()}
+          {newCategoryForm()}
+          {goBack()}
+        </div>
       </div>
     </Layout>
   );
