@@ -3,6 +3,7 @@ import Layout from './Layout';
 import CardForProduct from './CardForProduct';
 import { getCategories } from './salesApi';
 import CategoriesCheckBox from './CategoriesCheckBox';
+import { prices } from './PriceRange';
 
 const Shop = () => {
   // store filters in state
