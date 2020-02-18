@@ -25,19 +25,46 @@ const Shop = () => {
     init();
   }, []);
 
+  /**
+   * @function handleFilters Passing categories filter to parent components using props
+   * @arguement1 filters: sending the array of categories and price
+   * @argument2 filterBy: either by category or price
+   * @usedBy Filter by caterogies in the checkbox to render and ./CategoriesCheckBox
+   */
+  const handleFilters = (filters, filterBy) => {
+    console.log('Shop: ', filters, filterBy);
+  };
+
   return (
     <Layout
+      title='Shop Page'
+      description='Search and find books of your choice'
+      className='container-fluid'
+    >
+      {/* <Layout
       title='Shop'
       description='You can Search and Buy Everythings!'
       className='container-fluid'
-    >
+    > */}
       <div className='row'>
         <div className='col-4'>
           <h4>Filter by categories</h4>
           {/* use the props of categories from categories */}
-          <CategoriesCheckBox categories={categories} />
+          <ul>
+            <CategoriesCheckBox
+              categories={categories}
+              // filters return handleFilters with filters, 'category' arguments
+              handleFilters={filters => handleFilters(filters, 'category')}
+            />
+          </ul>
         </div>
-        <div className='col-8'>right frame</div>
+        <div className='col-8'>
+          <h2 className='mb-4'>Products</h2>
+          <div className='row'>
+            <div className='col-4 mb-3'>Card Product</div>
+          </div>
+          <hr />
+        </div>
       </div>
     </Layout>
   );

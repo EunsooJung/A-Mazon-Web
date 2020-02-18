@@ -11,7 +11,7 @@ import React, { useState } from 'react';
  * @return category list (selected categories by user each of them)
  * @usedBy ./Shop.js
  */
-const CategoriesCheckBox = ({ categories }) => {
+const CategoriesCheckBox = ({ categories, handleFilters }) => {
   // React useState Hooks
   const [checked, setChecked] = useState([]);
   const [error, setError] = useState(false);
@@ -36,6 +36,8 @@ const CategoriesCheckBox = ({ categories }) => {
     }
     console.log(newCheckedCategoryId);
     setChecked(newCheckedCategoryId);
+    // from handleFilters array of category id
+    handleFilters(newCheckedCategoryId);
   };
 
   // c: alias of categories, i: index of categories
