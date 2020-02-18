@@ -38,6 +38,7 @@ const Shop = () => {
    * @arguement1 filters: sending the array of categories and price
    * @argument2 filterBy: either by category or price
    * @usedBy Filter by caterogies in the checkbox to render and ./CategoriesCheckBox
+   * @requestTo back-end with filters(categories[], price:[]) object
    */
   const handleFilters = (filters, filterBy) => {
     // console.log('Shop: ', filters, filterBy);
