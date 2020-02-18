@@ -1,5 +1,6 @@
 import React from 'react';
 import Menu from './Menu';
+import '../styles.css';
 
 /** To display dynamically using props with default value */
 const Layout = ({

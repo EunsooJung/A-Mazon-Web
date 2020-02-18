@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getProducts } from './salesApi';
+import CardForProduct from './CardForProduct';
 
 const Home = () => {
   // react useState hooks
@@ -38,10 +39,24 @@ const Home = () => {
   }, []);
 
   return (
-    <Layout title='Home Page' description='Full-Stack Dev'>
-      {JSON.stringify(productsByArrival)}
+    <Layout
+      title='Welcome to Online Marketplace!'
+      description='Online Marketplace v1.x'
+      className='container-fluid'
+    >
+      <h4 className='mb-4'> Best Sellers</h4>
+      <div className='row'>
+        {productsBySell.map((product, i) => (
+          <CardForProduct key={i} product={product} />
+        ))}
+      </div>
       <hr />
-      {JSON.stringify(productsBySell)}
+      <h4 className='mb-4'> New Arrival Products</h4>
+      <div className='row'>
+        {productsByArrival.map((product, i) => (
+          <CardForProduct key={i} product={product} />
+        ))}
+      </div>
     </Layout>
   );
 };
