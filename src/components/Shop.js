@@ -3,6 +3,7 @@ import Layout from './Layout';
 import CardForProduct from './CardForProduct';
 import { getCategories } from './salesApi';
 import CategoriesCheckBox from './CategoriesCheckBox';
+import RadioBoxForPrice from './RadioBoxForPrice';
 import { prices } from './PriceRange';
 
 const Shop = () => {
@@ -70,6 +71,16 @@ const Shop = () => {
               handleFilters={filters => handleFilters(filters, 'category')}
             />
           </ul>
+
+          <h4>Filter by price range</h4>
+          {/* use the props of categories from categories */}
+          <div>
+            <RadioBoxForPrice
+              prices={prices}
+              // filters return handleFilters with filters, 'category' arguments
+              handleFilters={filters => handleFilters(filters, 'price')}
+            />
+          </div>
         </div>
         <div className='col-8'>
           <h2 className='mb-4'>Products</h2>
