@@ -81,8 +81,24 @@ export const list = params => {
     .catch(err => console.log(err));
 };
 
+/**
+ * @description
+ * @usedBy ./Product.js
+ * @requestType POST
+ * @requestTo router.get('/product/:productId', read);
+ */
 export const read = productId => {
   return fetch(`${API}/product/${productId}`, {
+    method: 'GET'
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+export const listRelated = productId => {
+  return fetch(`${API}/products/related/${productId}`, {
     method: 'GET'
   })
     .then(response => {
