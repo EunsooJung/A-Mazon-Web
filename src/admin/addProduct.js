@@ -45,6 +45,8 @@ const AddProduct = () => {
   } = values;
 
   /** useEffect hooks
+   * It is kinde of replacement to lifecyle methods.
+   * It will be use in class component.
    * Form data to be available as soon as the component mounts
    */
   useEffect(() => {
@@ -53,29 +55,58 @@ const AddProduct = () => {
   }, []);
 
   /** Define handleChange using higher order function
-   * function name return event function ?
+   * grab the name and it will return another event function ?
    */
   const handleChange = name => event => {
+    // Many input fileds --> just one object
     const value = name === 'photo' ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value });
   };
 
-  const addProductSubmit = event => {};
+  const addProductSubmit = event => {
+    event.preventDefault();
+    setValues({ ...values, error: '', loading: true });
+
+    createProduct(user._id, token, formData).then(data => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({
+          ...values,
+          name: '',
+          description: '',
+          photo: '',
+          price: '',
+          quantity: '',
+          loading: false,
+          createdProduct: data.name
+        });
+      }
+    });
+  };
 
   // Create new product form
   const postNewProductForm = () => (
     <form className='mb-3' onSubmit={addProductSubmit}>
       <h4>Display Product</h4>
       <div className='form-group'>
-        <Title level={4}>
-          <Upload>
-            <Button>
-              <Icon type='upload' /> Click to Upload
-            </Button>
-          </Upload>
-          {/* <Input type='file' name='photo' accept='image/*'></Input> */}
-        </Title>
+        <label className='btn btn-secondary'>
+          <input
+            onChange={handleChange('photo')}
+            type='file'
+            name='photo'
+            accept='image/*'
+          />
+        </label>
+
+        {/* <Title level={4}>
+            <Upload>
+              <Button>
+                <Icon type='upload' /> Click to Upload
+              </Button>
+            </Upload>
+          </Title> */}
       </div>
 
       <div className='form-group'>
@@ -110,13 +141,14 @@ const AddProduct = () => {
       <div className='form-group'>
         <label className='text-muted'>Category</label>
         <select onChange={handleChange('category')} className='form-control'>
-          <option>Please select</option>
-          {categories &&
+          <option value='5e4a2ce63cc7288b8cdb68bd'>Books</option>
+          <option value='5e4a2ce63cc7288b8cdb68bd'>Music</option>
+          {/* {categories &&
             categories.map((c, i) => (
               <option key={i} value={c._id}>
                 {c.name}
               </option>
-            ))}
+            ))} */}
         </select>
       </div>
 
@@ -139,9 +171,11 @@ const AddProduct = () => {
         />
       </div>
 
-      <Button type='primary' className='btn btn-outline-primary'>
+      <button className='btn btn-outline-primary'>Create Product</button>
+
+      {/* <Button type='primary' className='btn btn-outline-primary'>
         Create Product
-      </Button>
+      </Button> */}
     </form>
   );
 
