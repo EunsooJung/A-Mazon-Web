@@ -3,11 +3,13 @@
  */
 
 import { API } from '../config';
+import queryString from 'query-string';
 
 /**
  * Get all products
  * @RequestedBy  @method loadProductBySell, @method loadProductByArrival in Home.js
  * @RequestTo router.get('/products, list) in routes/productsRoutes.js back-end
+ * @usedBy ./Home.js
  */
 export const getProducts = sortBy => {
   return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
@@ -21,7 +23,7 @@ export const getProducts = sortBy => {
 
 /**
  * @description get all categories call to backend
- * @usedBy components/shop.js
+ * @usedBy components/shop.js, Search.js
  */
 export const getCategories = () => {
   return fetch(`${API}/categories`, {
@@ -45,7 +47,6 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
     skip,
     filters
   };
-
   return fetch(`${API}/products/by/search`, {
     method: 'POST',
     headers: {
@@ -60,4 +61,32 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
     .catch(err => {
       console.log(err);
     });
+};
+
+/**
+ * @description
+ * @usedBy ./Search.js
+ * @requestType POST
+ * @requestTo router.post('/products/by/search', searchProductsList); back-end
+ */
+export const list = params => {
+  const query = queryString.stringify(params);
+  console.log('query', query);
+  return fetch(`${API}/products/search?${query}`, {
+    method: 'GET'
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+export const read = productId => {
+  return fetch(`${API}/product/${productId}`, {
+    method: 'GET'
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
 };

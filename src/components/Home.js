@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getProducts } from './salesApi';
 import CardForProduct from './CardForProduct';
+import Search from './Search';
 
 const Home = () => {
   // react useState hooks
@@ -41,9 +42,10 @@ const Home = () => {
   return (
     <Layout
       title='Welcome to Online Marketplace!'
-      description='Online Marketplace v1.x'
+      description='Node React MongoDB - Online Marketplace App v1.x'
       className='container-fluid'
     >
+      <Search />
       <h4 className='mb-4'> Best Sellers</h4>
       <div className='row'>
         {productsBySell.map((product, i) => (
