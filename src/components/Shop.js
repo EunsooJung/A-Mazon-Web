@@ -5,6 +5,14 @@ import { getCategories } from './salesApi';
 import CategoriesCheckBox from './CategoriesCheckBox';
 
 const Shop = () => {
+  // store filters in state
+  const [categoryFilters, setCategoryFilters] = useState({
+    // filters object contians categories and price range
+    filters: {
+      categories: [],
+      price: []
+    }
+  });
   // create react useState Hooks, empty array by default and then bring in categories then setCategories
   const [categories, setCategories] = useState([]);
   // Create react useState Hooks to error
@@ -32,7 +40,10 @@ const Shop = () => {
    * @usedBy Filter by caterogies in the checkbox to render and ./CategoriesCheckBox
    */
   const handleFilters = (filters, filterBy) => {
-    console.log('Shop: ', filters, filterBy);
+    // console.log('Shop: ', filters, filterBy);
+    const newFilters = { ...categoryFilters };
+    newFilters.filters[filterBy] = filters;
+    setCategoryFilters(newFilters);
   };
 
   return (
@@ -61,7 +72,7 @@ const Shop = () => {
         <div className='col-8'>
           <h2 className='mb-4'>Products</h2>
           <div className='row'>
-            <div className='col-4 mb-3'>Card Product</div>
+            <div className='col-4 mb-3'>{JSON.stringify(categoryFilters)}</div>
           </div>
           <hr />
         </div>
