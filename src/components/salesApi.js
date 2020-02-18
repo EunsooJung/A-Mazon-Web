@@ -18,3 +18,17 @@ export const getProducts = sortBy => {
     })
     .catch(err => console.log(err));
 };
+
+/**
+ * @description get all categories call to backend
+ * @usedBy components/shop.js
+ */
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: 'GET'
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};

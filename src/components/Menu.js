@@ -20,6 +20,11 @@ const Menu = ({ history }) => (
         <Icon type='home' /> Home
       </Link>
     </li>
+    <li className='nav-item'>
+      <Link className='nav-link' style={isActive(history, '/shop')} to='/shop'>
+        <Icon type='shop' /> Shop
+      </Link>
+    </li>
 
     {/*  */}
     {isAuthenticated() && isAuthenticated().user.role === 0 && (
