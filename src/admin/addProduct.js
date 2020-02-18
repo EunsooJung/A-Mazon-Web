@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
-import { createProduct } from './adminApi';
-import { Button, Typography, Input, Upload, Icon } from 'antd';
-const { Title } = Typography;
-const { Search } = Input;
+import { createProduct, getCategories } from './adminApi';
 
 const AddProduct = () => {
   // Define product object state using useState hooks then initialize product object state.
@@ -44,6 +41,21 @@ const AddProduct = () => {
     formData
   } = values;
 
+  // load categories and set form data
+  const init = () => {
+    getCategories().then(data => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({
+          ...values,
+          categories: data,
+          formData: new FormData()
+        });
+      }
+    });
+  };
+
   /** useEffect hooks
    * It is kinde of replacement to lifecyle methods.
    * It will be use in class component.
@@ -51,7 +63,8 @@ const AddProduct = () => {
    */
   useEffect(() => {
     // ...values mean grap rest of data
-    setValues({ ...values, formData: new FormData() });
+    // setValues({ ...values, formData: new FormData() });
+    init();
   }, []);
 
   /** Define handleChange using higher order function
@@ -99,14 +112,6 @@ const AddProduct = () => {
             accept='image/*'
           />
         </label>
-
-        {/* <Title level={4}>
-            <Upload>
-              <Button>
-                <Icon type='upload' /> Click to Upload
-              </Button>
-            </Upload>
-          </Title> */}
       </div>
 
       <div className='form-group'>
@@ -141,14 +146,15 @@ const AddProduct = () => {
       <div className='form-group'>
         <label className='text-muted'>Category</label>
         <select onChange={handleChange('category')} className='form-control'>
-          <option value='5e4a2ce63cc7288b8cdb68bd'>Books</option>
-          <option value='5e4a2ce63cc7288b8cdb68bd'>Music</option>
-          {/* {categories &&
+          <option>Select Category</option>
+          {categories &&
             categories.map((c, i) => (
               <option key={i} value={c._id}>
                 {c.name}
               </option>
-            ))} */}
+            ))}
+          {/* <option value='5e4a2ce63cc7288b8cdb68bd'>Books</option>
+          <option value='5e4a2ce63cc7288b8cdb68bd'>Music</option> */}
         </select>
       </div>
 
@@ -172,12 +178,33 @@ const AddProduct = () => {
       </div>
 
       <button className='btn btn-outline-primary'>Create Product</button>
-
-      {/* <Button type='primary' className='btn btn-outline-primary'>
-        Create Product
-      </Button> */}
     </form>
   );
+
+  const showError = () => (
+    <div
+      className='alert alert-danger'
+      style={{ display: error ? '' : 'none' }}
+    >
+      {error}
+    </div>
+  );
+
+  const showSuccess = () => (
+    <div
+      className='alert alert-info'
+      style={{ display: createdProduct ? '' : 'none' }}
+    >
+      <h2>{`${createdProduct}`} is created!</h2>
+    </div>
+  );
+
+  const showLoading = () =>
+    loading && (
+      <div className='alert alert-success'>
+        <h2>Loading...</h2>
+      </div>
+    );
 
   return (
     <Layout
@@ -185,7 +212,12 @@ const AddProduct = () => {
       description={`Admin ${user.name}, Are you ready to add a new product ?`}
     >
       <div className='row'>
-        <div className='col-md-8 offset-md-2'>{postNewProductForm()}</div>
+        <div className='col-md-8 offset-md-2'>
+          {showLoading()}
+          {showSuccess()}
+          {showError()}
+          {postNewProductForm()}
+        </div>
       </div>
     </Layout>
   );

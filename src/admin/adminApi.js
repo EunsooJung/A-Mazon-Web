@@ -22,6 +22,7 @@ export const createCategory = (userId, token, category) => {
     });
 };
 
+// create new product api call to backend
 export const createProduct = (userId, token, product) => {
   return fetch(`${API}/product/create/${userId}`, {
     method: 'POST',
@@ -37,4 +38,15 @@ export const createProduct = (userId, token, product) => {
     .catch(err => {
       console.log(err);
     });
+};
+
+// get all categories call to backend
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: 'GET'
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
 };
