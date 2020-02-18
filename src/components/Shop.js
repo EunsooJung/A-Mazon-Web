@@ -10,10 +10,7 @@ const Shop = () => {
   // store filters in state
   const [categoryFilters, setCategoryFilters] = useState({
     // filters object contians categories and price range
-    filters: {
-      categories: [],
-      price: []
-    }
+    filters: { category: [], price: [] }
   });
   // create react useState Hooks, empty array by default and then bring in categories then setCategories
   const [categories, setCategories] = useState([]);
@@ -23,7 +20,7 @@ const Shop = () => {
   // to get filtered product list and set default value
   const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
-  const [filteredResults, setFilteredResults] = useState(0);
+  const [filteredResults, setFilteredResults] = useState([]);
 
   // load categories
   const init = () => {
@@ -43,7 +40,7 @@ const Shop = () => {
       if (data.error) {
         setError(data.error);
       } else {
-        setFilteredResults(data);
+        setFilteredResults(data.data);
       }
     });
   };
@@ -120,7 +117,9 @@ const Shop = () => {
         <div className='col-8'>
           <h2 className='mb-4'>Products</h2>
           <div className='row'>
-            <div className='col-4 mb-3'>{JSON.stringify(filteredResults)}</div>
+            {filteredResults.map((product, i) => (
+              <CardForProduct key={i} product={product} />
+            ))}
           </div>
           <hr />
         </div>
