@@ -22,7 +22,7 @@ const CardForProduct = ({ product }) => {
             </button>
           </Link>
           <button className='btn btn-outline-warning mt-2 mb-2 mr-2'>
-            Add to Card by User
+            Add to Cart
           </button>
         </div>
       </div>

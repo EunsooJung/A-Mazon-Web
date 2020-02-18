@@ -20,6 +20,7 @@ const Shop = () => {
   // to get filtered product list and set default value
   const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
+  const [size, setSize] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
 
   // load categories
@@ -41,8 +42,37 @@ const Shop = () => {
         setError(data.error);
       } else {
         setFilteredResults(data.data);
+        // how many products getting
+        setSize(data.size);
+        setSkip(0);
       }
     });
+  };
+
+  //
+  const loadMore = () => {
+    let toSkip = skip + limit;
+    // console.log(newFilters);
+    getFilteredProducts(toSkip, limit, categoryFilters.filters).then(data => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setFilteredResults([...filteredResults, ...data.data]);
+        setSize(data.size);
+        setSkip(toSkip);
+      }
+    });
+  };
+
+  const loadMoreButton = () => {
+    return (
+      size > 0 &&
+      size >= limit && (
+        <button onClick={loadMore} className='btn btn-warning mb-5'>
+          Load more
+        </button>
+      )
+    );
   };
 
   useEffect(() => {
@@ -122,6 +152,7 @@ const Shop = () => {
             ))}
           </div>
           <hr />
+          {loadMoreButton()}
         </div>
       </div>
     </Layout>
