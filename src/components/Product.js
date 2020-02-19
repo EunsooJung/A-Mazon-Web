@@ -11,6 +11,12 @@ const Product = props => {
   const [relatedProduct, setRelatedProduct] = useState([]);
   const [error, setError] = useState(false);
 
+  /**
+   *
+   * @param {*} productId
+   * @providedBy .salesApi @methods read, listRealated
+   * @usedBy
+   */
   const loadSingleProduct = productId => {
     read(productId).then(data => {
       if (data.error) {

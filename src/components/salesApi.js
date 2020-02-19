@@ -97,6 +97,12 @@ export const read = productId => {
     .catch(err => console.log(err));
 };
 
+/**
+ * @description
+ * @usedBy ./Product.js
+ * @requestType POST
+ * @requestTo router.get('/products/related/:productId', relatedProductList);
+ */
 export const listRelated = productId => {
   return fetch(`${API}/products/related/${productId}`, {
     method: 'GET'
