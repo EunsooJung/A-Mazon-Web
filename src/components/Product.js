@@ -15,7 +15,7 @@ const Product = props => {
    *
    * @param {*} productId
    * @providedBy .salesApi @methods read, listRealated
-   * @usedBy
+   * @usedTo Product
    */
   const loadSingleProduct = productId => {
     read(productId).then(data => {
