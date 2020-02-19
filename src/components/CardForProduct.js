@@ -1,16 +1,20 @@
 /**
  * @UsedBy @Compoent Home.js, Shop.js
  */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import DisplayProductImage from './DisplayProductImage';
 import moment from 'moment';
+import { addItem } from './cartHelpers';
 
 const CardForProduct = ({
   product,
   showViewProductButton = true,
+  showAddToCartButton = true,
   showRemoveProductButton
 }) => {
+  const [redirect, setRedirect] = useState(false);
+
   //
   const showViewButton = showViewProductButton => {
     return (
@@ -20,6 +24,31 @@ const CardForProduct = ({
             View Product
           </button>
         </Link>
+      )
+    );
+  };
+
+  const addToCart = () => {
+    addItem(product, () => {
+      setRedirect(true);
+    });
+  };
+
+  const redirectIsTrue = redirect => {
+    if (redirect) {
+      return <Redirect to='/cart' />;
+    }
+  };
+
+  const showAddToCartBtn = showAddToCartButton => {
+    return (
+      showAddToCartButton && (
+        <button
+          onClick={addToCart}
+          className='btn btn-outline-warning mt-2 mb-2 card-btn-1  '
+        >
+          Add to cart
+        </button>
       )
     );
   };
@@ -45,7 +74,7 @@ const CardForProduct = ({
     <div className='card '>
       <div className='card-header card-header-1 name'>{product.name}</div>
       <div className='card-body'>
-        {/* {shouldRedirect(redirect)} */}
+        {redirectIsTrue(redirect)}
         <DisplayProductImage item={product} url='product' />
         <p className='lead mt-2'>{product.description.substring(0, 100)} </p>
         <p>Price: $ {product.price}</p>
@@ -57,6 +86,8 @@ const CardForProduct = ({
         <br />
 
         {showViewButton(showViewProductButton)}
+
+        {showAddToCartBtn(showAddToCartButton)}
 
         {showRemoveButton(showRemoveProductButton)}
 
