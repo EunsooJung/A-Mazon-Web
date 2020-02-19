@@ -74,9 +74,9 @@ const Search = () => {
 
         <div className='row'>
           {results.map((product, i) => (
-            // <div className='col-4 mb-3'>
-            <CardForProduct key={i} product={product} />
-            // </div>
+            <div className='col-4 mb-3'>
+              <CardForProduct key={i} product={product} />
+            </div>
           ))}
         </div>
       </div>
@@ -116,8 +116,8 @@ const Search = () => {
     <div className='row'>
       <div className='container mb-3'>{searchForm()}</div>
       <div className='container-fluid mb-3'>{searchedProducts(results)}</div>
-      {/* {JSON.stringify(results)} */}
     </div>
+    // {/* {JSON.stringify(results)} */}
   );
 };
 

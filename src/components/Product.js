@@ -36,12 +36,28 @@ const Product = props => {
 
   return (
     <Layout
-      title='Prouct Details'
-      description='View Product'
+      title={product && product.name}
+      description={
+        product && product.description && product.description.substring(0, 100)
+      }
       className='container-fluid'
     >
-      <h2 className='mb-4'>Single Product</h2>
-      <div className='row'>{JSON.stringify(product)}</div>
+      <div className='row'>
+        <div className='col-8'>
+          {product && product.description && (
+            <CardForProduct product={product} showViewProductButton={false} />
+          )}
+        </div>
+
+        <div className='col-4'>
+          <h4>Related products</h4>
+          {relatedProduct.map((p, i) => (
+            <div className='mb-3' key={i}>
+              <CardForProduct product={p} />
+            </div>
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 };
