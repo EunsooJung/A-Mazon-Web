@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import DisplayProductImage from './DisplayProductImage';
 import moment from 'moment';
-import { addItem } from './cartHelpers';
+import { addItem } from './cart/cartHelpers';
 
 const CardForProduct = ({
   product,

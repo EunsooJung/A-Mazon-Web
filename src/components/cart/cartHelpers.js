@@ -39,3 +39,16 @@ export const addItem = (item, next) => {
     next();
   }
 };
+
+/**
+ * @function getTotalItemsInCart It provides total items in the Cart by the length
+ * @usedBy ./Menu component
+ */
+export const getTotalItemsInCart = () => {
+  if (typeof window !== 'undefined') {
+    if (localStorage.getItem('cat')) {
+      return JSON.parse(localStorage.getItem('cart')).length;
+    }
+  }
+  return 0;
+};

@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { signout, isAuthenticated } from '../auth';
+import { getTotalItemsInCart } from './cart/cartHelpers';
+
 import { Icon } from 'antd';
 import './css/icons.css';
-
-import { signout, isAuthenticated } from '../auth';
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -20,9 +21,20 @@ const Menu = ({ history }) => (
         <Icon type='home' /> Home
       </Link>
     </li>
+
     <li className='nav-item'>
       <Link className='nav-link' style={isActive(history, '/shop')} to='/shop'>
         <Icon type='shop' /> Shop
+      </Link>
+    </li>
+
+    <li className='nav-item'>
+      <Link className='nav-link' style={isActive(history, '/cart')} to='/cart'>
+        <Icon type='cart' />
+        Cart{' '}
+        <sup>
+          <small className='cart-badge'>{getTotalItemsInCart()}</small>
+        </sup>
       </Link>
     </li>
 
