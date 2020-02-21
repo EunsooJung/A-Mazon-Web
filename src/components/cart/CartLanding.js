@@ -30,7 +30,7 @@ const CartLanding = () => {
       <div>
         <h2>
           <Icon type='shopping' theme='twoTone' twoToneColor='#eb2f96' /> Your
-          cart has {`${items.length}`} Items
+          cart has {`${items.length}`} items
         </h2>
         <hr />
         {items.map((product, i) => (
