@@ -10,6 +10,7 @@ import {
   getBraintreeClientToken,
   processPayment
 } from '../salesApi';
+import { emptyCart } from '../cart/cartHelpers';
 import Card from '../CardForProduct';
 import { isAuthenticated } from '../../auth/';
 import { Link } from 'react-router-dom';
@@ -54,7 +55,7 @@ const CheckoutProductInCart = ({
   }, []);
 
   // return <div>{JSON.stringify(products)}</div>;
-  const getTotalItemsCountinCart = () => {
+  const getTotalItemsPriceInCart = () => {
     return products.reduce((currentValue, nextValue) => {
       return currentValue + nextValue.count * nextValue.price;
     }, 0); // 0 is index
@@ -91,13 +92,16 @@ const CheckoutProductInCart = ({
         // );
         const paymentData = {
           paymentMethodNonce: nonce,
-          amount: getTotalItemsCountinCart(products)
+          amount: getTotalItemsPriceInCart(products)
         };
 
         processPayment(userId, token, paymentData)
           .then(response => {
             setData({ ...data, success: response.success });
             //console.log(response))
+            emptyCart(() => {
+              console.log('Payment success and empty cart');
+            });
             // empty cart
             // create order
           })
@@ -163,7 +167,7 @@ const CheckoutProductInCart = ({
 
   return (
     <div>
-      <h2> Total payment: ${getTotalItemsCountinCart()}</h2>
+      <h2> Total payment: ${getTotalItemsPriceInCart()}</h2>
       {showLoading(data.loading)}
       {showSuccess(data.success)}
       {showError(data.error)}

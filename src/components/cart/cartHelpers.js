@@ -114,8 +114,9 @@ export const removeItemInCart = productId => {
 };
 
 /**
- *
- * @param {*} next
+ * @description Once the user pay for the product, clear to empty the card from the localStorage
+ * @param {*} next callback
+ * @usedIn components/cart/CheckoutProductInCart.js
  */
 export const emptyCart = next => {
   if (typeof window !== 'undefined') {
