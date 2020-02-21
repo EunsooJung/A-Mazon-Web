@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { signout, isAuthenticated } from '../auth';
-import { getTotalItemsInCart } from './cart/cartHelpers';
+import { getItemsCountInCartBadge } from './cart/cartHelpers';
 
 import { Icon } from 'antd';
 import './css/icons.css';
@@ -30,10 +30,9 @@ const Menu = ({ history }) => (
 
     <li className='nav-item'>
       <Link className='nav-link' style={isActive(history, '/cart')} to='/cart'>
-        <Icon type='cart' />
-        Cart{' '}
+        <Icon type='shopping-cart' /> Cart{' '}
         <sup>
-          <small className='cart-badge'>{getTotalItemsInCart()}</small>
+          <small className='cart-badge'>{getItemsCountInCartBadge()}</small>
         </sup>
       </Link>
     </li>

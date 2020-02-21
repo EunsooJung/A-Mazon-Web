@@ -80,7 +80,8 @@ export const signout = cb => {
 };
 
 /**
- * display or hide sign-in, sign-out link
+ * @description display or hide sign-in, sign-out link
+ * @UsedIn components/cart/CheckoutProductInCart.js
  */
 export const isAuthenticated = () => {
   if (typeof window == 'undefined') {

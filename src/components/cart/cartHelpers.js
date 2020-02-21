@@ -5,12 +5,12 @@
  */
 
 /**
- *
+ * @method addItem
  * @param {*} item
  * @param {*} next
  * @usedIn ./CardForProduct.js
  */
-export const addItem = (item, next) => {
+export const addItemToCart = (item = [], count = 0, next = f => f) => {
   let cart = [];
   if (typeof window !== 'undefined') {
     if (localStorage.getItem('cart')) {
@@ -41,14 +41,85 @@ export const addItem = (item, next) => {
 };
 
 /**
- * @function getTotalItemsInCart It provides total items in the Cart by the length
- * @usedBy ./Menu component
+ * @method getItemsCountInCartBadge It provides total items from localStorage then display into the Cart's badge by the length
+ * @usedBy ./Menu.js component
  */
-export const getTotalItemsInCart = () => {
+export const getItemsCountInCartBadge = () => {
   if (typeof window !== 'undefined') {
-    if (localStorage.getItem('cat')) {
+    if (localStorage.getItem('cart')) {
       return JSON.parse(localStorage.getItem('cart')).length;
     }
   }
   return 0;
+};
+
+/**
+ * @method getAllItemsInCart It provides all items in the Cart
+ * @usedBy components/cart/CartLanding.js component
+ */
+export const getAllItemsInCart = () => {
+  if (typeof window !== 'undefined') {
+    if (localStorage.getItem('cart')) {
+      return JSON.parse(localStorage.getItem('cart'));
+    }
+  }
+  return [];
+};
+
+/**
+ * @method updateCartItem It provides all items in the Cart
+ * @usedBy components/cart/CartLanding.js component
+ */
+export const updateCartItem = (productId, count) => {
+  let cart = [];
+  if (typeof window !== 'undefined') {
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        cart[i].count = count;
+      }
+    });
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+};
+
+/**
+ * @method removeItemInCart
+ * @param {*} productId
+ * @usedIn components/cart/CartLanding.js / components/CardForProduct.js
+ */
+export const removeItemInCart = productId => {
+  let cart = [];
+  if (typeof window !== 'undefined') {
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+
+    cart.map((product, i) => {
+      if (product._id === productId) {
+        // splice method takes two argument
+        // the first argument is the index from where to splice
+        // second argument is how many item to splice
+        cart.splice(i, 1);
+      }
+    });
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+  return cart;
+};
+
+/**
+ *
+ * @param {*} next
+ */
+export const emptyCart = next => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('cart');
+    next();
+  }
 };
