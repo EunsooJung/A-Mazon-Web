@@ -107,7 +107,6 @@ export const removeItemInCart = productId => {
         cart.splice(i, 1);
       }
     });
-
     localStorage.setItem('cart', JSON.stringify(cart));
   }
   return cart;
