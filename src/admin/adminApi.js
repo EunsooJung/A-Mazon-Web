@@ -50,3 +50,24 @@ export const getCategories = () => {
     })
     .catch(err => console.log(err));
 };
+
+/**
+ * @description
+ * @param {*} userId
+ * @param {*} token
+ * @usedIn ./Orders.js
+ * @requestTo router.get('/order/list/:userId', requireSignin, isAuth, isAdmin, listOrders); back-end
+ */
+export const listOrders = (userId, token) => {
+  return fetch(`${API}/order/list/${userId}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};

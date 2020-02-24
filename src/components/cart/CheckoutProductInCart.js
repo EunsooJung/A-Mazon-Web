@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {
+  getProducts,
   getBraintreeClientToken,
   processPayment,
   createOrder
@@ -90,7 +91,7 @@ const CheckoutProductInCart = ({
         // console.log(
         //     "send nonce and total to process: ",
         //     nonce,
-        //     getTotalItemsCountinCart(products)
+        //     getTotal(products)
         // );
         const paymentData = {
           paymentMethodNonce: nonce,
@@ -100,6 +101,8 @@ const CheckoutProductInCart = ({
         processPayment(userId, token, paymentData)
           .then(response => {
             console.log(response);
+            // empty cart
+            // create order
 
             const createOrderData = {
               products: products,
