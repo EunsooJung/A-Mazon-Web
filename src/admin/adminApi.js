@@ -71,3 +71,49 @@ export const listOrders = (userId, token) => {
     })
     .catch(err => console.log(err));
 };
+
+/**
+ *
+ * @param {*} userId
+ * @param {*} token
+ * @usedIn ./Orders.js
+ * @requestTo controllers/orderController.js - getStatusValues : back-end
+ */
+export const getStatusValues = (userId, token) => {
+  return fetch(`${API}/order/status-values/${userId}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+/**
+ *
+ * @param {*} userId
+ * @param {*} token
+ * @param {*} orderId
+ * @param {*} status
+ * @usedIn ./Orders.js @method handleStatusChange()
+ * @requestTo controllers/orderController.js - exports.updateOrderStatus = (req, res) => { ... : back-end
+ */
+export const updateOrderStatus = (userId, token, orderId, status) => {
+  return fetch(`${API}/order/${orderId}/status/${userId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ status, orderId })
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
