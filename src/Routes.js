@@ -17,6 +17,7 @@ import Shop from './components/Shop';
 import Product from './components/Product';
 import CartLanding from './components/cart/CartLanding';
 import Orders from './admin/Orders';
+import Profile from './user/Profile';
 
 const Routes = () => {
   return (
@@ -41,6 +42,7 @@ const Routes = () => {
         <Route path='/product/:productId' exact component={Product} />
         <Route path='/cart' exact component={CartLanding} />
         <AdminRoute path='/admin/orders' exact component={Orders} />
+        <PrivateRoute path='/profile/:userId' exact component={Profile} />
       </Switch>
     </BrowserRouter>
   );
