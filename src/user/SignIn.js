@@ -129,7 +129,7 @@ const SignIn = () => {
       {signInForm()}
       {redirectUser()}
       {/* To check the states changing status, we can use json.stringity */}
-      {JSON.stringify(values)}
+      {/* {JSON.stringify(values)} */}
     </Layout>
   );
 };
