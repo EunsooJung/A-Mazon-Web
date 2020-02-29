@@ -25,8 +25,8 @@ See deployment for notes on how to deploy the project on a live system.
 # Run
 npm start
 ```
-[![DemoGif](./assets/project3gif.gif)]
 
+[![DemoGif](./assets/project3gif.gif)]
 
 ## Usage
 
@@ -53,7 +53,7 @@ To start:
 
 - Project structure
 
-  [![A-Mazon-Server-Web Project Structure]()]
+  [![A-Mazon-Server-Web Project Structure](./assets/projectStructure.PNG)]
 
 1. admin: It provides category, product, order management UI and API call to Server-Side.
 2. auth: It provides user authentication components
@@ -68,6 +68,20 @@ To start:
 
 - [ReacJS](https://reactjs.org/)
 - [Bootstrap](https://getbootstrap.com/)
+- [AntD](https://ant.design/)
+- [Express](https://expressjs.com/)
+- [Express-validator](https://express-validator.github.io/docs/)
+- [Mongoose](https://mongoosejs.com/)
+- [Atlas-MongoDB](https://www.mongodb.com/cloud/atlas)
+- [Body-parser](https://www.npmjs.com/package/body-parser)
+- [Cookie-parser](https://www.npmjs.com/package/cookie-parser)
+- [Cors](https://www.npmjs.com/package/cors)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [Formidable](https://www.npmjs.com/package/formidable)
+- [Braintree](https://developers.braintreepayments.com/)
+- [Nodemon](https://nodemon.io/)
+- [Cloudfare](https://www.cloudflare.com/)
 
 ## Authors
 
@@ -76,7 +90,9 @@ To start:
 - **Michael(Eunsoo)Jung**
 
 * [A-Mazon-Server: Demo](http://167.71.146.22/)
-* [My Portfolio](https://eunsoojung.github.io/Responsive-Portfolio/portfolio.html)
+* [Lucas' Portfolio](https://github.com/kalashnikoffee)
+* [Tai's Portfolio](https://github.com/TaiLe96)
+* [Michael's Portfolio](https://eunsoojung.github.io/Responsive-Portfolio/portfolio.html)
 * [Link to A-Mazon-Server-Web Github: Clien-Side](https://github.com/EunsooJung/A-Mazon-Web.git)
 * [Link to A-Mazon-Server Github: Server-Side](https://github.com/EunsooJung/A-Mazon-Server.git)
 * [Link to LinkedIn](www.linkedin.com/in/eun-soo-jung/)
