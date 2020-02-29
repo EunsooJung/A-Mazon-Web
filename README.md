@@ -1,4 +1,4 @@
-# A-Mazon-Server-Web
+# A-Mazon-Server-Web~
 
 Build your own A-Mazon-Server-Web applicaion with React, Node.js, Express and MongoDB with MVC Pattern.
 
